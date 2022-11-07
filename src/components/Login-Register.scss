@@ -1,0 +1,44 @@
+h4{
+    font-family: 'Elsie';
+    color: #F9F5DA;
+}
+
+form{
+    // background-color: #F9F5DA;
+    padding: 20px;
+    box-shadow: 0px 0px 5px 2px #F9F5DA;
+    color:#F9F5DA;
+    a{
+        color: #EAA098;
+        text-decoration: none;;
+    }
+    .formbtn{
+        color: #F9F5DA;
+         letter-spacing: 3px;
+         border: 1px solid;  
+         border-color: #F9F5DA;
+         border-radius: 0%;
+     
+         &:hover{
+             background-color: #F9F5DA;
+             color:#332e39;
+         }
+     }
+     .form-control{
+        border-radius: 0;
+        
+    }
+    .form-group{
+        a{
+            font-size: 14px;
+            float: right;
+        }
+    }
+    p{
+        color: #F9F5DA;
+    }
+} 
+
+
+
+

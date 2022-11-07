@@ -1,0 +1,110 @@
+
+.container{
+    color: white;
+    .navbar{
+        background-color: #47404F;
+        h3{
+            font-family: 'Elsie';
+            color: #F9F5DA;
+        }
+    }
+    
+    .addnotes{
+        color: #F9F5DA;
+        border: 1px solid;  
+        border-color: #F9F5DA;
+        border-radius: 0%;
+    
+        &:hover{
+            background-color: #F9F5DA;
+            color:#332e39;
+        }
+    }
+    .logoutbtn{
+        background-color: #EAA098;
+        border: 1px solid;  
+        border-color: #EAA098;
+        border-radius: 0%;
+    
+        &:hover{
+            background-color: #F9F5DA;
+            color:#332e39;
+        }
+    }
+
+    .card{
+        background-color: #F9F5DA;
+        color: #332e39;
+        border-radius: 0;
+        box-shadow: 0 4px 8px 0 rgba(1, 1, 1, 0.934), 0px 5px 16px 10px rgba(176, 169, 169, 0.194);
+        &:hover {
+            box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.872);
+          }
+          ::-webkit-scrollbar {
+            width: 2px;
+          }
+          
+          /* Track */
+          ::-webkit-scrollbar-track {
+            background: none; 
+          }
+           
+          /* Handle */
+          ::-webkit-scrollbar-thumb {
+            background: #888; 
+          }
+    }
+    
+    .card-title{
+        font-family: 'Roboto-Med';
+    }
+    .card-text{
+        height: 200px;
+        overflow-y: scroll;
+    }
+ 
+}
+.modal-content{
+    background-color: #F9F5DA;
+    color: #332e39;
+    border-radius: 0;
+    box-shadow: 0 4px 8px 0 rgba(1, 1, 1, 0.934), 0px 5px 16px 10px rgba(176, 169, 169, 0.194);
+    &:hover {
+        box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.872);
+      }
+}
+.modal-title{
+    font-family: 'Roboto-Med';
+}
+.modal-body{
+.form-control{
+    background: none;
+    border: 1px solid #332e39;
+    resize: none;
+    &:focus{
+        background: none;
+        border: 1px solid #332e39;
+        box-shadow: rgba(50, 50, 93, 0.25) 0px 2px 5px -1px, rgba(0, 0, 0, 0.3) 0px 1px 3px -1px;
+    }
+   }
+}
+   textarea#notebody.form-control{
+    min-height: 100px;
+}
+.discardbtn{
+    background: none;
+    color: #332e39;
+    border: 1px solid #332e39;
+    &:hover{
+        background: #332e39; 
+        color: #F9F5DA;
+    }
+  }
+  .addbtn{
+    background-color:#EAA098;
+    color: #332e39;
+    border: 1px solid #EAA098;
+    &:hover{
+        background-color: #eaa099; 
+    }
+  }
