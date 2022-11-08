@@ -46,11 +46,9 @@ const Login = () => {
    return(
     <div className=" container-fluid mt-4">
       <div className="row  d-flex justify-content-center">
-        <div className="col-3 ">
+        <div className="col-4 justify-content-center text-center">
         <img className="img-fluid" src={Logo}/>
-        <div className="row">
-        <h4 className='py-2'>Your digital sticky notes app</h4>
-          </div>
+        <h4 className='py-2 '>Your digital sticky notes app</h4>
         </div>
       </div>
       <div className="row d-flex justify-content-center">

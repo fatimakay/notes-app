@@ -57,13 +57,14 @@ const Register = () => {
     return (  
         <div className=" container-fluid mt-4">
         <div className="row  d-flex justify-content-center">
-          <div className="col-3 ">
-          <img className="img-fluid" src={Logo}/>
-          </div>
+        <div className="col-4 justify-content-center text-center">
+        <img className="img-fluid" src={Logo}/>
+        <h4 className='py-2 '>Your digital sticky notes app</h4>
         </div>
+      </div>
         <div className="row d-flex justify-content-center">
           <div className="col-md-5  justify-content-center">
-            <form className='p-5'>
+            <form className='py-4 px-5'>
               <p>{statusMsg}</p>
             <div className="form-group py-2">
                 <input type="text" className="form-control" id="name" placeholder="Enter your name..."
