@@ -27,8 +27,7 @@
         border-radius: 0%;
     
         &:hover{
-            background-color: #F9F5DA;
-            color:#332e39;
+            background-color: #F2C0BB;
         }
     }
 
@@ -59,8 +58,9 @@
         font-family: 'Roboto-Med';
     }
     .card-text{
-        height: 200px;
+        height: 150px;
         overflow-y: scroll;
+        white-space: pre-line;
     }
  
 }
@@ -96,7 +96,11 @@
     color: #332e39;
     border: 1px solid #332e39;
     &:hover{
-        background: #332e39; 
+        background: #47404F; 
+        color: #F9F5DA;
+    }
+    &:focus{
+        background: #47404F; 
         color: #F9F5DA;
     }
   }
@@ -105,6 +109,16 @@
     color: #332e39;
     border: 1px solid #EAA098;
     &:hover{
-        background-color: #eaa099; 
+        background-color: #F2C0BB; 
+        color: #332e39;
+    }
+    &:focus{
+        background-color: #F2C0BB;
+    }
+  }
+  .icon{
+    &:hover{
+        cursor: pointer;
+        color:rgb(186, 181, 181); 
     }
   }

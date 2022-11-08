@@ -1,10 +1,9 @@
 import Logo from '../assets/images/logo.png';
-import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import { auth} from "../firebase";
 import { createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
 import './Login-Register.scss'; 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { getDatabase, ref, set } from '@firebase/database';
 
 const Register = () => {
@@ -17,10 +16,9 @@ const Register = () => {
   const [submitButtonDisabled, setSubmitButtonDisabled] = useState(false);
   const [statusMsg, setStatusMsg] = useState('');
   //firebase auth
-  const [user, loading, error] = useAuthState(auth);
   const navigate = useNavigate();
 
-  //function to invoke on button click
+  //add new user to database and authentication
   const userRegister = (e) => {
     e.preventDefault();
     if (!name || !email || !password) {
@@ -32,7 +30,6 @@ const Register = () => {
     setSubmitButtonDisabled(true);
     createUserWithEmailAndPassword(auth, email, password)
       .then(async (res) => {
-        setStatusMsg('Registration Successful!')
         setSubmitButtonDisabled(false);
         const user = res.user;
         await updateProfile(user, {
@@ -40,15 +37,15 @@ const Register = () => {
         });
         writeUserData(user, name, email);
         navigate("/");
-        alert("Registration Successful")
+        setStatusMsg("Registration Successful!")
         console.log(user);
       })
       .catch((err) => {
         setSubmitButtonDisabled(false);
         console.log(err.message);
       });
-  }; //27:35
-  //write user's data to realtime database
+  }; 
+  //function to write user data to realtime database
   const writeUserData = (user, name, email) =>  {
     set(ref(db, 'users/' + user.uid), {
       username: name,
@@ -56,11 +53,6 @@ const Register = () => {
     });
    
 }
-    // useEffect(() => {
-   
-  //   if (user) navigate("/home");
-  // }, [user, loading]);
- 
 
     return (  
         <div className=" container-fluid mt-4">
@@ -72,6 +64,7 @@ const Register = () => {
         <div className="row d-flex justify-content-center">
           <div className="col-md-5  justify-content-center">
             <form className='p-5'>
+              <p>{statusMsg}</p>
             <div className="form-group py-2">
                 <input type="text" className="form-control" id="name" placeholder="Enter your name..."
                 value={name}

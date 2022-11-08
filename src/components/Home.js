@@ -4,36 +4,28 @@ import { useAuthState } from "react-firebase-hooks/auth";
 import { Link, useNavigate } from "react-router-dom";
 import Logo from '../assets/images/logo.png';
 import "./Home.scss";
-import { auth, db, logout } from "../firebase";
-import { query, collection, getDocs, where } from "firebase/firestore";
+import { auth, logout } from "../firebase";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/fontawesome-free-solid";
 import { Modal, Button } from "react-bootstrap";
-import { getDatabase, ref, onValue , push, child } from '@firebase/database';
+import { getDatabase, ref, onValue , push, remove, update } from '@firebase/database';
 import NoteList from "./NoteList";
+import Note from "./Note";
 
 
 
 const Home = (props) => {
-
+  //--FIREBASE REALTIME DATABASE--
   const db= getDatabase(); 
-  
   const [user, loading, error] = useAuthState(auth);
-  const [name, setName] = useState("");
+
   const navigate = useNavigate();
 
-
-  useEffect(() => {
-    if (loading) return;
-    if (!user) return navigate("/");
-    getNote();
-  }, [user]);
-
-  //--MODAL--
+  //--TOGGLE MODAL FOR ADDING NEW NOTE--
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
-  //--ADDING NOTE--
+  //--NOTE INFO--
   const [noteTitle, setNoteTitle] = useState("");
   const [noteBody, setNoteBody] = useState("");
   const [note, setNote] = useState([]);
@@ -43,11 +35,13 @@ const Home = (props) => {
       title: noteTitle,  
       body: noteBody
     }
-    if(noteBody.trim().length > 0){
+    if(noteTitle.trim().length > 0){
+      //push to firebase database
       push(ref(db, 'users/' + user.uid + '/notes'), newNote);
-      setShow(false);
-      const newNotes = [...note, newNote]; //creates a new array of exisitng notes
+      setShow(false); //close modal 
+      const newNotes = [...note, newNote]; //copy note to existing array of notes
       setNote(newNotes); 
+      //reset notes form
       setNoteTitle(''); 
       setNoteBody('');
     }
@@ -58,43 +52,43 @@ const Home = (props) => {
   const getNote = () =>{
      const db= getDatabase(); 
      const getNotes = ref(db, 'users/' + user.uid + '/notes');
+     //listen for changes
      onValue(getNotes, (snapshot) => {
       let newItem = [];
        snapshot.forEach(childSnapshot =>{
-
           newItem.push(...note, {
             id: childSnapshot.key,
           title: childSnapshot.val().title,
            body: childSnapshot.val().body
           }); 
-       
-        // const item= {
-        //   title: childSnapshot.val().title,
-        //   body: childSnapshot.val().body
-        // }
-        // let newItem = []
-        // newItem.push(...note, item); 
-        // setNote(newItem);
-        // console.log('mynotes', note)
       });
       setNote(newItem);
-      console.log(note);
-    
     })
-      
   }
 
- 
+  const deleteNote = (id) => {
+    const db=getDatabase(); 
+    //remove the note with the same id
+    const noteFiltered = note.filter((noteItem) =>  noteItem.id !== id);
+    setNote(noteFiltered);
+    remove(ref( db, 'users/' + user.uid + '/notes/' + id));
+  }
+
+
+  useEffect(() => {
+    if (loading) return;
+    if (!user) return navigate("/");
+    getNote();
+  }, [user]);
+
     return (
       <>
-
       <Modal 
        {...props}
        size="sm"
        aria-labelledby="contained-modal-title-vcenter"
        centered
-       show={show} onHide={handleClose}
-       >
+       show={show} onHide={handleClose}>
         <Modal.Header>
           <Modal.Title>Add New Note</Modal.Title>
         </Modal.Header>
@@ -105,18 +99,18 @@ const Home = (props) => {
               onChange={(e) => setNoteTitle(e.target.value)}/>
             </div>
             <div className="form-group">
-            <textarea value={noteBody} className="form-control" id="notebody" 
+            <textarea rows="5" value={noteBody} className="form-control" id="notebody" 
               placeholder="Write your note here..."
               onChange={(e) =>setNoteBody(e.target.value)}/>
             </div>
         </Modal.Body>
         <Modal.Footer>
-          <Button className="discardbtn" onClick={handleClose}>
+          <button className="btn discardbtn" onClick={handleClose}>
             Discard
-          </Button>
-          <Button className="addbtn" onClick={addNote}>
+          </button>
+          <button className="btn addbtn" onClick={addNote}>
             Add
-          </Button>
+          </button>
         </Modal.Footer>
       </Modal>
       <div className="container w-75 mt-5">
@@ -137,12 +131,11 @@ const Home = (props) => {
         <div className="container notes-container">
         <h1>My Notes</h1>
                 {/* Passing notes state as prop */}
-            <NoteList note={note}/>
+            <NoteList note={note} handleDeleteNote={deleteNote}/>
          </div>
       </div>
-      
-</>
-      );
+      </>
+    );
 }
 
  

@@ -39,10 +39,9 @@ const Login = () => {
       });
   };
 
-  // useEffect(() => {
-   
-  //   if (user) navigate("/home");
-  // }, [user, loading]);
+  useEffect(() => {
+    if (user) navigate("/home");
+  }, [user]);
 
    return(
     <div className=" container-fluid mt-4">
@@ -50,7 +49,7 @@ const Login = () => {
         <div className="col-3 ">
         <img className="img-fluid" src={Logo}/>
         <div className="row">
-        <h4 className='py-2'> Your digital sticky notes app</h4>
+        <h4 className='py-2'>Your digital sticky notes app</h4>
           </div>
         </div>
       </div>
@@ -68,7 +67,6 @@ const Login = () => {
               <input type="password" value={password} className="form-control" id="password" 
               placeholder="Enter your password..."
               onChange={(e) =>setPassword(e.target.value)}/>
-              <Link to="/password-reset">Forgot password?</Link>
             </div>
             <button className="formbtn btn w-100 my-2"  
             onClick={userLogin}
@@ -80,9 +78,7 @@ const Login = () => {
     </div>
    )
       
-    }
-    
-   
-        
+}
+            
      
 export default Login;
