@@ -17,7 +17,7 @@ Each user will be shown the notes that are associated with their account.
 
 Use the button on the top right to add a new note. 
 
-## Delete Note
+### Delete Note
 
 Each note has a delete icon which will remove the note from the notes list and delete it from the database as well. 
 
